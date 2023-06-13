@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import static de.louis.mendinglessnetherite.MendinglessNetherite.isNetherite;
+
 @Debug(export = true)
 @Mixin(SmithingScreenHandler.class)
 public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
@@ -23,11 +25,11 @@ public abstract class SmithingScreenHandlerMixin extends ForgingScreenHandler {
     }
     @ModifyVariable(
             method = "updateResult",
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/recipe/SmithingRecipe;craft(Lnet/minecraft/inventory/Inventory;)Lnet/minecraft/item/ItemStack;"),
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/recipe/SmithingRecipe;craft(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/registry/DynamicRegistryManager;)Lnet/minecraft/item/ItemStack;"),
             index = 3
     )
-    public ItemStack ona(ItemStack value) {
-        if(MendinglessNetherite.isNetherite(this.input.getStack(0)) || MendinglessNetherite.isNetherite(this.input.getStack(1))) {
+    public ItemStack removeMendingFromNetherite(ItemStack value) {
+        if(isNetherite(this.input.getStack(0)) || isNetherite(this.input.getStack(1))) {
             var a = EnchantmentHelper.get(value);
             a.remove(Enchantments.MENDING);
             EnchantmentHelper.set(a, value);

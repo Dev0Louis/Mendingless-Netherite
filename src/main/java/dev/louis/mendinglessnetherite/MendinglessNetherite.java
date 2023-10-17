@@ -1,4 +1,4 @@
-package de.louis.mendinglessnetherite;
+package dev.louis.mendinglessnetherite;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;

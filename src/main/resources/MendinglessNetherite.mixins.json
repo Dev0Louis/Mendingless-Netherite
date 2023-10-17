@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "de.louis.mendinglessnetherite.mixin",
+  "package": "dev.louis.mendinglessnetherite.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AnvilScreenHandlerMixin",

@@ -1,4 +1,4 @@
-package de.louis.mendinglessnetherite.mixin;
+package dev.louis.mendinglessnetherite.mixin;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
-import static de.louis.mendinglessnetherite.MendinglessNetherite.isNetherite;
+import static dev.louis.mendinglessnetherite.MendinglessNetherite.isNetherite;
 
 @Debug(export = true)
 @Mixin(EnchantmentHelper.class)
@@ -24,9 +24,9 @@ public class EnchantmentHelperMixin {
             method = "getPossibleEntries",
             at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILEXCEPTION
     )
-    private static void removeMendingForEnchanter(int power, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir, List list) {
+    private static void removeMendingForEnchanter(int power, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir, List<EnchantmentLevelEntry> list) {
         if(isNetherite(stack)) {
-            list.remove(Enchantments.MENDING);
+            list.removeIf(enchantmentLevelEntry -> enchantmentLevelEntry.enchantment == Enchantments.MENDING);
         }
     }
 

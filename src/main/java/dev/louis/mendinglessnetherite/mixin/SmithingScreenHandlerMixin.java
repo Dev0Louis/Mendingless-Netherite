@@ -1,6 +1,5 @@
-package de.louis.mendinglessnetherite.mixin;
+package dev.louis.mendinglessnetherite.mixin;
 
-import de.louis.mendinglessnetherite.MendinglessNetherite;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerInventory;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import static de.louis.mendinglessnetherite.MendinglessNetherite.isNetherite;
+import static dev.louis.mendinglessnetherite.MendinglessNetherite.isNetherite;
 
 @Debug(export = true)
 @Mixin(SmithingScreenHandler.class)

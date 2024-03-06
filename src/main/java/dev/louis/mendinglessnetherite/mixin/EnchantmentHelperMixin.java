@@ -3,7 +3,9 @@ package dev.louis.mendinglessnetherite.mixin;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,6 +29,16 @@ public class EnchantmentHelperMixin {
     private static void removeMendingForEnchanter(int power, ItemStack stack, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir, List<EnchantmentLevelEntry> list) {
         if(isNetherite(stack)) {
             list.removeIf(enchantmentLevelEntry -> enchantmentLevelEntry.enchantment == Enchantments.MENDING);
+        }
+    }
+
+    @Inject(
+            method = "generateEnchantments",
+            at = @At("RETURN")
+    )
+    private static void removeMendingForEnchanter(Random random, ItemStack stack, int level, boolean treasureAllowed, CallbackInfoReturnable<List<EnchantmentLevelEntry>> cir) {
+        if(isNetherite(stack)) {
+            cir.getReturnValue().removeIf(enchantmentLevelEntry -> enchantmentLevelEntry.enchantment == Enchantments.MENDING);
         }
     }
 
